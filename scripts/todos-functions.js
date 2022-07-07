@@ -1,7 +1,6 @@
 
 
 const getSavedTodos = () => {
-  SELECT()
   const todosJSON = localStorage.getItem('todos');
   
   var d = (todosJSON ? JSON.parse(todosJSON) : []);
