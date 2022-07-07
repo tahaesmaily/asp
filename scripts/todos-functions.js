@@ -1,7 +1,12 @@
 'use strict'
 
 
-const getSavedTodos = () => {
+const getSavedTodos = async() => {
+    const { data, error } = await _supabase
+  .from('item')
+  .select()
+
+  console.log(data)
     const todosJSON = localStorage.getItem('todos');
     
     try{
@@ -12,13 +17,17 @@ const getSavedTodos = () => {
 }
 
 // Save todos to localStorage
-const saveTodos = (todos) => {
+const saveTodos = async(todos) => {
     console.log(todos)
     localStorage.setItem('todos', JSON.stringify(todos))
-
+    const { data, error } = await _supabase
+  .from('item')
+  .insert([
+    { id: todos.id, text: todos.text },
+  ])
 }
 
-const removeTodo = (id) => {
+const removeTodo = async(id) => {
     const index = todos.findIndex((todo) => todo.id === id)
     if (index > -1){
         todos.splice(index, 1);
@@ -27,7 +36,7 @@ const removeTodo = (id) => {
 }
 
 
-const editon=(id,v)=>{
+const editon=async(id,v)=>{
  const index = todos.findIndex((todo) => todo.id === id)
   if (index>-1){
    todos[index].text=v;
@@ -36,7 +45,7 @@ const editon=(id,v)=>{
   return todos;
 }
 // Render applicatin todos
-const generateTodoDOM = (todos) => {
+const generateTodoDOM = async(todos) => {
     todos.forEach( (todo) => {
 
         const todoElement = document.createElement('label');
@@ -87,7 +96,7 @@ const generateTodoDOM = (todos) => {
     })
 }
 
-const getSummaryDOM = (todos) => {
+const getSummaryDOM = async(todos) => {
     const summary = document.createElement('h2');
     const completedTodos = todos.filter( (todo) => !todo.completed);
     summary.classList.add('list-title')
@@ -99,7 +108,7 @@ const getSummaryDOM = (todos) => {
     document.querySelector('#todos').appendChild(summary);
 }
 
-const renderTodos = (todos, filters) => {
+const renderTodos = async(todos, filters) => {
     
     document.querySelector('#todos').innerHTML = '';
 
