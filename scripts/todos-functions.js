@@ -28,7 +28,8 @@ async function UPDATE(id,v) {
 
 const getSavedTodos = async() => {
   const todosJSON = localStorage.getItem('todos');
-  var a=(await SELECT().data)
+  var a=await SELECT().data;
+  console.log(a)
   var d =a ? a : (todosJSON ? JSON.parse(todosJSON) : []);
   
   try{
