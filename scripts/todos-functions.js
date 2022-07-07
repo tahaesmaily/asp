@@ -26,12 +26,10 @@ async function UPDATE(id,v) {
   .match({ id})
 }
 
-const getSavedTodos = async() => {
+const getSavedTodos = () => {
   const todosJSON = localStorage.getItem('todos');
-
-  var d =  todosJSON ? JSON.parse(todosJSON) : [] | await SELECT().data;
   try{
-      return d;
+      return todosJSON ? JSON.parse(todosJSON) : [];
   } catch (e){
       return [];
   } 
