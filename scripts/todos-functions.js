@@ -1,10 +1,23 @@
 'use strict'
 
 
-const getSavedTodos = async() => {
+async function SELECT() {
     const { data, error } = await _supabase.from('item').select()
+    console.log(data)
+}
 
+async function INSERT(todos) {
+    const { data, error } = await _supabase
+  .from('item')
+  .insert([
+    { id: todos.id, text: todos.text },
+  ])
   console.log(data)
+}
+const getSavedTodos = () => {
+    
+    SELECT()
+
     const todosJSON = localStorage.getItem('todos');
     
     try{
@@ -15,18 +28,13 @@ const getSavedTodos = async() => {
 }
 
 // Save todos to localStorage
-const saveTodos = async(todos) => {
+const saveTodos = (todos) => {
     console.log(todos)
     localStorage.setItem('todos', JSON.stringify(todos))
-    const { data, error } = await _supabase
-  .from('item')
-  .insert([
-    { id: todos.id, text: todos.text },
-  ])
-  console.log(data)
+    INSERT(todos)
 }
 
-const removeTodo = async(id) => {
+const removeTodo = (id) => {
     const index = todos.findIndex((todo) => todo.id === id)
     if (index > -1){
         todos.splice(index, 1);
@@ -35,7 +43,7 @@ const removeTodo = async(id) => {
 }
 
 
-const editon=async(id,v)=>{
+const editon=(id,v)=>{
  const index = todos.findIndex((todo) => todo.id === id)
   if (index>-1){
    todos[index].text=v;
@@ -44,7 +52,7 @@ const editon=async(id,v)=>{
   return todos;
 }
 // Render applicatin todos
-const generateTodoDOM = async(todos) => {
+const generateTodoDOM = (todos) => {
     todos.forEach( (todo) => {
 
         const todoElement = document.createElement('label');
@@ -95,7 +103,7 @@ const generateTodoDOM = async(todos) => {
     })
 }
 
-const getSummaryDOM = async(todos) => {
+const getSummaryDOM = (todos) => {
     const summary = document.createElement('h2');
     const completedTodos = todos.filter( (todo) => !todo.completed);
     summary.classList.add('list-title')
@@ -107,7 +115,7 @@ const getSummaryDOM = async(todos) => {
     document.querySelector('#todos').appendChild(summary);
 }
 
-const renderTodos = async(todos, filters) => {
+const renderTodos = (todos, filters) => {
     
     document.querySelector('#todos').innerHTML = '';
 
