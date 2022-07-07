@@ -1,5 +1,5 @@
 async function SELECT() {
-    const { data, error } = await supabase
+    const { data, error } = await _supabase
   .from('item')
   .select()
   console.log(data,error)
