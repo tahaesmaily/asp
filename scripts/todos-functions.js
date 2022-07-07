@@ -26,9 +26,9 @@ async function UPDATE(id,v) {
   .match({ id})
 }
 
-const getSavedTodos = () => {
+const getSavedTodos = async() => {
   const todosJSON = localStorage.getItem('todos');
-  console.log(SELECT().data)
+  console.log(await SELECT())
   var d =SELECT() ? SELECT() : (todosJSON ? JSON.parse(todosJSON) : []);
   
   try{
