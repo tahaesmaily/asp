@@ -1,7 +1,8 @@
-'use strict'
-
-
 const getSavedTodos = () => {
+    const { data, error } = await supabase
+  .from('item')
+  .select()
+  console.log(data)
     const todosJSON = localStorage.getItem('todos');
     
     try{
