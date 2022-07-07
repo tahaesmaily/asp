@@ -23,6 +23,7 @@ const saveTodos = async(todos) => {
   .insert([
     { id: todos.id, text: todos.text },
   ])
+  console.log(data)
 }
 
 const removeTodo = async(id) => {
