@@ -214,16 +214,16 @@ input {
      برای ادیت روی متن کلید کنید تغییر بدهید و بعد دکمه ادیت را بزنید تا ذخیره شود
    </footer>
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="./scripts/uuid.js"></script>  
+   <script src="./scripts/uuid.js"></script>  
+   <script>
+    const { createClient } = supabase
+    const _supabase = createClient('https://wgnahsgekvhbukilcbfn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnbmFoc2dla3ZoYnVraWxjYmZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTY0MjYyNTQsImV4cCI6MTk3MjAwMjI1NH0.aptkEdX2cciPrIrsVgVxkhxuF2ctmqalEmu-YbNqilM')
+
+  </script>
+    
     <script src="./scripts/todos-functions.js"></script>
     <script src="./scripts/todo-app.js"></script>
-    <script>
-        const { createClient } = supabase
-        const _supabase = createClient('https://wgnahsgekvhbukilcbfn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnbmFoc2dla3ZoYnVraWxjYmZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTY0MjYyNTQsImV4cCI6MTk3MjAwMjI1NH0.aptkEdX2cciPrIrsVgVxkhxuF2ctmqalEmu-YbNqilM')
-      
-        console.log('Supabase Instance: ', _supabase)
-        // ...
-      </script>
+    
     
 </body>
 </html>
