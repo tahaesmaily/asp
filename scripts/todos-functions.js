@@ -1,23 +1,7 @@
 'use strict'
 
 
-async function SELECT() {
-    const { data, error } = await _supabase.from('item').select()
-    console.log(data)
-}
-
-async function INSERT(todos) {
-    const { data, error } = await _supabase
-  .from('item')
-  .insert([
-    { id: todos.id, text: todos.text },
-  ])
-  console.log(data)
-}
 const getSavedTodos = () => {
-    
-    SELECT()
-
     const todosJSON = localStorage.getItem('todos');
     
     try{
@@ -29,9 +13,7 @@ const getSavedTodos = () => {
 
 // Save todos to localStorage
 const saveTodos = (todos) => {
-    console.log(todos)
     localStorage.setItem('todos', JSON.stringify(todos))
-    INSERT(todos)
 }
 
 const removeTodo = (id) => {
