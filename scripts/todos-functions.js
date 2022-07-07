@@ -1,17 +1,39 @@
 async function SELECT() {
-    const { data, error } = await _supabase
+  const { data, error } = await _supabase
   .from('item')
   .select()
-  console.log(data,error)
+  console.log(data)
+  return data;
 }
 
+async function INSERT(todos) {
+  const { data, error } = await _supabase
+  .from('item')
+  .insert([
+    { id: todos.id, text: todos.text }
+  ])
+}
+async function Delete(id) {
+  const { data, error } = await _supabase
+  .from('item')
+  .delete()
+  .match({ id })
+}
+async function UPDATE(id,v) {
+  const { data, error } = await _supabase
+  .from('item')
+  .update({ text: v })
+  .match({ id})
+}
 
 const getSavedTodos = () => {
     SELECT()
     const todosJSON = localStorage.getItem('todos');
-    console.log(JSON.parse(todosJSON))
+    
+    var d = SELECT() ? SELECT() : (todosJSON ? JSON.parse(todosJSON) : []);
+    
     try{
-        return todosJSON ? JSON.parse(todosJSON) : [];
+        return d;
     } catch (e){
         return [];
     } 
@@ -20,9 +42,12 @@ const getSavedTodos = () => {
 // Save todos to localStorage
 const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos))
+    INSERT(todos)
 }
 
 const removeTodo = (id) => {
+  Delete(id)
+  console.log(id)
     const index = todos.findIndex((todo) => todo.id === id)
     if (index > -1){
         todos.splice(index, 1);
@@ -32,6 +57,7 @@ const removeTodo = (id) => {
 
 
 const editon=(id,v)=>{
+  console.log(id,v)
  const index = todos.findIndex((todo) => todo.id === id)
   if (index>-1){
    todos[index].text=v;
