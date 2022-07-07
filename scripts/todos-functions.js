@@ -3,7 +3,7 @@ async function SELECT() {
   .from('item')
   .select()
   console.log(data)
-  return data;
+  return {data};
 }
 
 async function INSERT(todos) {
