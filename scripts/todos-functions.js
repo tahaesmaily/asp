@@ -1,9 +1,35 @@
+async function SELECT() {
+  const { data, error } = await _supabase
+  .from('item')
+  .select()
+  console.log(data)
+  return data;
+}
 
+async function INSERT(todos) {
+  const { data, error } = await _supabase
+  .from('item')
+  .insert([
+    { id: todos.id, text: todos.text }
+  ])
+}
+async function DeletE(id) {
+  const { data, error } = await _supabase
+  .from('item')
+  .delete()
+  .match({ id })
+}
+async function UPDATE(id,v) {
+  const { data, error } = await _supabase
+  .from('item')
+  .update({ text: v })
+  .match({ id})
+}
 
 const getSavedTodos = () => {
   const todosJSON = localStorage.getItem('todos');
   
-  var d = (todosJSON ? JSON.parse(todosJSON) : []);
+  var d =SELECT() ? SELECT() : (todosJSON ? JSON.parse(todosJSON) : []);
   
   try{
       return d;
@@ -15,10 +41,11 @@ const getSavedTodos = () => {
 // Save todos to localStorage
 const saveTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
-
+INSERT(todos)
 }
 
 const removeTodo = (id) => {
+  DeletE(id)
 console.log(id)
   const index = todos.findIndex((todo) => todo.id === id)
   if (index > -1){
@@ -29,7 +56,7 @@ console.log(id)
 
 
 const editon=(id,v)=>{
-console.log(id,v)
+UPDATE(id,v)
 const index = todos.findIndex((todo) => todo.id === id)
 if (index>-1){
  todos[index].text=v;
@@ -89,17 +116,7 @@ const generateTodoDOM = (todos) => {
   })
 }
 
-const getSummaryDOM = (todos) => {
-  const summary = document.createElement('h2');
-  const completedTodos = todos.filter( (todo) => !todo.completed);
-  summary.classList.add('list-title')
-  if (completedTodos.length > 1){
-  summary.textContent = completedTodos.length;
-  } else {
-  summary.textContent = completedTodos.length;
-  }
-  document.querySelector('#todos').appendChild(summary);
-}
+
 
 const renderTodos = (todos, filters) => {
   
@@ -107,9 +124,10 @@ const renderTodos = (todos, filters) => {
 
   let filteredTodos = todos.filter( (todo) => todo.text.toLowerCase().includes(filters.searchText.toLowerCase()));
 
-  getSummaryDOM(todos);
   generateTodoDOM(filteredTodos);
 }
+
+
 
 
 
