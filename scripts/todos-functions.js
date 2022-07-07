@@ -9,7 +9,7 @@ async function SELECT() {
 const getSavedTodos = () => {
     SELECT()
     const todosJSON = localStorage.getItem('todos');
-    
+    console.log(JSON.parse(todosJSON))
     try{
         return todosJSON ? JSON.parse(todosJSON) : [];
     } catch (e){
