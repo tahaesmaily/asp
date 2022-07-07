@@ -2,9 +2,7 @@
 
 
 const getSavedTodos = async() => {
-    const { data, error } = await _supabase
-  .from('item')
-  .select()
+    const { data, error } = await _supabase.from('item').select()
 
   console.log(data)
     const todosJSON = localStorage.getItem('todos');
